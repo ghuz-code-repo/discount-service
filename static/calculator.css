@@ -1,0 +1,225 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.container {
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+}
+h1, h2 {
+    color: #d4af37; /* Golden House primary color */
+}
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+.details, .calculations {
+    margin-bottom: 20px;
+}
+.details p, .calculations p {
+    margin: 5px 0;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #d4af37; /* Golden House primary color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.button:hover {
+    background-color: #b38e2c; /* Darker shade of primary color */
+}
+.manager {
+    margin-bottom: 20px;
+    font-style: italic;
+}
+.footer {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 20px;
+}
+.logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.header {
+    font-style: italic;
+    margin-bottom: 20px;
+}
+@media (max-width: 600px) {
+    .container {
+        width: 100%;
+        padding: 10px;
+    }
+    .button {
+        width: 100%;
+        padding: 15px;
+    }
+}
+
+/* ... your existing screen styles ... */
+
+/* ... your existing screen styles ... */
+
+@media print {
+    /* Define print page margins AND clear default headers/footers */
+    @page {
+        margin: 20mm; /* Your desired page margins */
+        size: A4; /* Optional: Specify paper size */
+
+        /* Clear browser default headers */
+        @top-left { content: ""; }
+        @top-center { content: ""; }
+        @top-right { content: ""; }
+
+        /* Clear browser default footers */
+        @bottom-left { content: ""; }
+        @bottom-center { content: ""; }
+        @bottom-right { content: ""; }
+    }
+
+    /* Reset body and html for printing */
+    html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        background-color: white !important;
+        color: black !important; /* Ensure default text color is black */
+    }
+
+    /* Hide all direct children of body initially */
+    body > * {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Make the main container visible and set relative positioning context */
+    body > .container {
+        display: block !important;
+        visibility: visible !important;
+        position: relative; /* Needed for absolute positioning of children */
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        height: auto !important;
+        background: none !important;
+        color: black !important; /* Ensure text in container is black */
+    }
+
+    /* Make the target container, logo, header, and their children visible */
+    .container > .logo,
+    .container > .header, /* Make header visible if needed */
+    .container > h1, /* Make main H1 visible */
+    .centered-container,
+    .centered-container * {
+        display: block !important; /* Use block or appropriate display */
+        visibility: visible !important;
+        color: black !important; /* Ensure all visible text is black */
+    }
+    /* Ensure logo image itself is visible */
+     .container > .logo img {
+        visibility: visible !important;
+        display: block !important;
+     }
+
+
+    /* Style the target container for print */
+    .centered-container {
+        position: relative; /* Ensure it's above the logo */
+        z-index: 1; /* Higher z-index than logo */
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+        width: 100% !important;
+        height: auto !important;
+        background-color: transparent !important; /* Make background transparent to see logo behind */
+        color: black !important;
+        font-size: 12pt !important;
+        line-height: 1.4 !important;
+        page-break-inside: avoid !important;
+    }
+
+    /* Style and position the logo for print */
+    .container > .logo {
+        position: absolute;
+        /* Example: Position bottom right within page margins */
+        bottom: 0;
+        right: 0;
+        /* Or center it */
+        /* top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); */
+        z-index: 0; /*Place it behind other content  */
+        /* opacity: 0.15; Make it faint like a watermark (adjust as needed) */
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .container > .logo img {
+         max-width: 200px; /* Adjust size as needed */
+         height: auto;
+     }
+
+    h2 {
+        color: black !important; /* Override gold color for print */
+        font-size: 16pt !important; /* Adjust font size for print */
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure elements inside centered-container flow naturally and are black */
+    .centered-container h1,
+    .centered-container p {
+        margin: 0 0 10px 0 !important;
+        padding: 0 !important;
+        color: black !important;
+    }
+
+    .centered-container p strong {
+        font-weight: bold !important;
+        color: black !important;
+    }
+
+     /* Style the header specifically if needed */
+     .container > .header {
+         font-style: italic;
+         margin-bottom: 20px;
+         text-align: center; /* Example alignment */
+         color: black !important;
+         position: relative; /* Keep it above logo */
+         z-index: 1;
+     }
+     /* Style the main H1 specifically if needed */
+     .container > h1 {
+         text-align: center;
+         margin-bottom: 15px;
+         color: black !important; /* Override gold color for print */
+         position: relative; /* Keep it above logo */
+         z-index: 1;
+     }
+
+     #back_to_calc {
+        display: none !important; /* Hide the button in print view */
+        visibility: hidden !important; /* Hide the button in print view */
+     }
+}

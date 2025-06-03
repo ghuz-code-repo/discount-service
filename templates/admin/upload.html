@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Загрузка Excel{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Загрузка Excel файла</h1>
+    
+    <form method="POST" action="/discount-system//upload-excel" enctype="multipart/form-data">
+        <label for="excel_file">Выберите файл Excel</label>
+        <input type="file" id="excel_file" name="excel_file" accept=".xlsx,.xls" required>
+        <div class="form-info">
+            <p>Требуемый лист:</p>
+            <ul>
+                <li>{{sheet}}</li>
+            </ul>
+            <p>Требуемые колонки:</p>
+            <ul>
+                {% for column in columns %}
+                    <li>{{ column }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <button type="submit">Загрузить</button>
+    </form>
+</div>
+{% endblock %}

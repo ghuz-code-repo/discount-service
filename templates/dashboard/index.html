@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Система скидок{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="top-left">
+        <img src="/discount-system/static/img/gh_logo.png" alt="Golden House Logo" class="logo">
+    </div>
+
+    <div class="form-container">
+        <h1>Система скидок</h1>
+        
+        <form id="discountForm">
+            <div class="form-group">
+                <label for="complex">Жилой комплекс</label>
+                <select id="complex" name="complex" required>
+                    <option value="">Выберите ЖК</option>
+                    {% for complex in complexes %}
+                    <option value="{{ complex.id }}">{{ complex.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="propertyType">Тип недвижимости</label>
+                <select id="propertyType" name="propertyType" required>
+                    <option value="">Выберите тип</option>
+                    {% for type in property_types %}
+                    <option value="{{ type.id }}">{{ type.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentType">Вид оплаты</label>
+                <select id="paymentType" name="paymentType" required>
+                    <option value="">Выберите вид оплаты</option>
+                    {% for type in payment_types %}
+                    <option value="{{ type.id }}">{{ type.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div id="discountResult" class="form-group" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Тип скидки</th>
+                            <th>Размер</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Скидка МПП</td>
+                            <td><span id="mppDiscount">0</span>%</td>
+                        </tr>
+                        <tr>
+                            <td>Скидка РОП</td>
+                            <td><span id="optDiscount">0</span>%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('discountForm');
+    const complexSelect = document.getElementById('complex');
+    const propertyTypeSelect = document.getElementById('propertyType');
+    const paymentTypeSelect = document.getElementById('paymentType');
+    const discountResult = document.getElementById('discountResult');
+
+    // Show discount result section with 0% values initially
+    document.getElementById('mppDiscount').textContent = '0';
+    document.getElementById('optDiscount').textContent = '0';
+    discountResult.style.display = 'block';
+
+    function updateDiscounts() {
+        const complexId = complexSelect.value;
+        const typeId = propertyTypeSelect.value;
+        const paymentTypeId = paymentTypeSelect.value;
+
+        // Always show the discount section
+        discountResult.style.display = 'block';
+
+        // Only fetch from API if all values are selected
+        if (complexId && typeId && paymentTypeId) {
+            fetch(`/discount-system/api/discounts?complex_id=${complexId}&type_id=${typeId}&payment_type_id=${paymentTypeId}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('mppDiscount').textContent = data.mpp_discount;
+                    document.getElementById('optDiscount').textContent = data.opt_discount;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('mppDiscount').textContent = '0';
+                    document.getElementById('optDiscount').textContent = '0';
+                });
+        } else {
+            // Reset to 0% if not all filters are selected
+            document.getElementById('mppDiscount').textContent = '0';
+            document.getElementById('optDiscount').textContent = '0';
+        }
+    }
+
+    complexSelect.addEventListener('change', updateDiscounts);
+    propertyTypeSelect.addEventListener('change', updateDiscounts);
+    paymentTypeSelect.addEventListener('change', updateDiscounts);
+});
+</script>
+{% endblock %}

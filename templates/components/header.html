@@ -1,0 +1,28 @@
+<header class="header">
+    <div class="header-content">
+        <div class="header-logo">
+            <img src="/discount-system/static/logo.png" alt="Golden House Logo" class="logo">
+        </div>
+
+        <div class="header-nav">
+            {% if request.path != '/' and request.path != '/discount-system/' %}
+            <a href="/discount-system/" class="nav-link">
+                <button>Калькулятор</button>
+            </a>
+            {% endif %}
+            {% if current_user.role == 'admin'%}
+                {% if request.path != '/upload-excel' and request.path != '/discount-system/upload-excel' %}
+                <a href="/discount-system/upload-excel" class="nav-link">
+                    <button>Загрузить Excel</button>
+                </a>
+                {% endif %}
+            {% endif %}
+            <div class="user-info">
+                <span>{{ current_user.full_name }}</span>
+                <a href="/" class="nav-link">
+                    <button>Menu</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

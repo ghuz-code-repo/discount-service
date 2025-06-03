@@ -1,0 +1,12 @@
+# Dev environment
+pip
+autopep8
+pandas
+
+# App
+flask
+flask_sqlalchemy
+requests
+pymysql
+openpyxl
+dotenv
