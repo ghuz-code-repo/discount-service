@@ -16,6 +16,7 @@ class DiscountObject(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     mpp_discount = db.Column(db.Float, default=0.0)
     opt_discount = db.Column(db.Float, default=0.0)
+    kd_discount = db.Column(db.Float, default=0.0)
     complex_id = db.Column(db.Integer, db.ForeignKey('complex.id'), nullable=False)
     type_id = db.Column(db.Integer, db.ForeignKey('property_type.id'), nullable=False)
     payment_type_id = db.Column(db.Integer, db.ForeignKey('payment_type.id'), nullable=False)

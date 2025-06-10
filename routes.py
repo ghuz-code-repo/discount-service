@@ -88,10 +88,7 @@ def get_current_user():
         user = User(
             login=username,
             full_name=full_name,
-            role = role,
-            current_balance=0,
-            pending_withdrawal=0,
-            total_withdrawal=0,
+            role = role
         )
         db.session.add(user)
         
@@ -162,7 +159,8 @@ def get_discounts():
     # Return 0 values if no discount found instead of 404
     return jsonify({
         'mpp_discount': round(discount.mpp_discount*100, 2) if discount else 0,
-        'opt_discount': round(discount.opt_discount*100, 2) if discount else 0
+        'opt_discount': round(discount.opt_discount*100, 2) if discount else 0,
+        'kd_discount': round(discount.kd_discount*100, 2) if discount else 0,
     })
     
 def init_app(app):

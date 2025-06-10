@@ -42,7 +42,7 @@
                 </select>
             </div>
 
-            <div id="discountResult" class="form-group" style="display: none;">
+            <div id="discountResult" class="form-group">
                 <table>
                     <thead>
                         <tr>
@@ -59,6 +59,12 @@
                             <td>Скидка РОП</td>
                             <td><span id="optDiscount">0</span>%</td>
                         </tr>
+                        {% if current_user.role == 'rop' or current_user.role == 'admin' %}
+                        <tr>
+                            <td>Скидка КД</td>
+                            <td><span id="kdDiscount">0</span>%</td>
+                        </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -76,18 +82,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const paymentTypeSelect = document.getElementById('paymentType');
     const discountResult = document.getElementById('discountResult');
 
-    // Show discount result section with 0% values initially
-    document.getElementById('mppDiscount').textContent = '0';
-    document.getElementById('optDiscount').textContent = '0';
-    discountResult.style.display = 'block';
-
     function updateDiscounts() {
         const complexId = complexSelect.value;
         const typeId = propertyTypeSelect.value;
         const paymentTypeId = paymentTypeSelect.value;
-
-        // Always show the discount section
-        discountResult.style.display = 'block';
 
         // Only fetch from API if all values are selected
         if (complexId && typeId && paymentTypeId) {
@@ -96,16 +94,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(data => {
                     document.getElementById('mppDiscount').textContent = data.mpp_discount;
                     document.getElementById('optDiscount').textContent = data.opt_discount;
+                    if (document.getElementById('kdDiscount')!== null) {
+                        document.getElementById('kdDiscount').textContent = data.kd_discount || 0; // Default to 0 if not present
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     document.getElementById('mppDiscount').textContent = '0';
                     document.getElementById('optDiscount').textContent = '0';
+                    if (document.getElementById('kdDiscount')!== null) {
+                        document.getElementById('kdDiscount').textContent = '0';
+                    }
                 });
         } else {
             // Reset to 0% if not all filters are selected
             document.getElementById('mppDiscount').textContent = '0';
             document.getElementById('optDiscount').textContent = '0';
+            if (document.getElementById('kdDiscount')!== null) {
+                document.getElementById('kdDiscount').textContent = '0';
+            }
         }
     }
 

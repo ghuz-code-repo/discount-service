@@ -234,6 +234,7 @@ class DataSyncService:
             payment_type_name = item.get("Вид оплаты")
             mpp_discount = item.get("Скидка МПП")  # Note exact column name match
             opt_discount = item.get("Скидка РОП")  # Note exact column name match
+            kd_discount = item.get("Скидка КД")  # Note exact column name match
             
             logger.debug(f"Extracted values - MPP: {mpp_discount}, ROP: {opt_discount}")
             
@@ -248,10 +249,12 @@ class DataSyncService:
                 # Remove any % signs and convert to float
                 mpp_str = str(mpp_discount).replace('%', '').strip() if mpp_discount else '0'
                 opt_str = str(opt_discount).replace('%', '').strip() if opt_discount else '0'
-                
+                kd_str = str(kd_discount).replace('%', '').strip() if kd_discount else '0'
+
                 # Convert to decimal (e.g., 5% becomes 0.05)
                 mpp_disc = (float(mpp_str) * 100.0)/100.0
                 opt_disc = (float(opt_str) * 100.0)/100.0
+                kd_disc = (float(kd_str) * 100.0)/100.0 if kd_str else 0.0
                 
                 logger.debug(f"Converted discounts - MPP: {mpp_disc}, ROP: {opt_disc}")
             except (ValueError, TypeError) as e:
@@ -279,13 +282,15 @@ class DataSyncService:
             if discount_obj:
                 discount_obj.mpp_discount = mpp_disc
                 discount_obj.opt_discount = opt_disc
+                discount_obj.kd_discount = kd_disc
                 logger.debug(f"Updated discount object {discount_obj.id} with "
-                           f"MPP: {mpp_disc}, ROP: {opt_disc}")
+                           f"MPP: {mpp_disc}, ROP: {opt_disc}, KD: {kd_disc}")
             else:
                 discount_obj = DiscountObject(
                     complex_id=complex_obj.id,
                     type_id=prop_type.id,
                     payment_type_id=payment_type.id,
+                    kd_discount=kd_disc,
                     mpp_discount=mpp_disc,
                     opt_discount=opt_disc
                 )
