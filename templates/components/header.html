@@ -13,7 +13,7 @@
             {% if current_user.role == 'admin'%}
                 {% if request.path != '/upload-excel' and request.path != '/discount-system/upload-excel' %}
                 <a href="/discount-system/upload-excel" class="nav-link">
-                    <button>Загрузить Excel</button>
+                    <button>Админка</button>
                 </a>
                 {% endif %}
             {% endif %}

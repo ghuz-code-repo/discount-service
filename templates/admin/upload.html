@@ -4,9 +4,18 @@
 
 {% block content %}
 <div class="container">
-    <h1>Загрузка Excel файла</h1>
-    
-    <form method="POST" action="/discount-system//upload-excel" enctype="multipart/form-data">
+    <h1>Админка</h1>
+
+    <div style="min-width: 60%;">
+
+    <h2>Добавление комментария</h2>
+    <form method="POST" action="/discount-system/upload-comment">
+        <textarea name="comment_text" placeholder="Введите комментарий" required></textarea>
+        <button type="submit">Добавить комментарий</button>
+    </form>
+
+    <h2>Загрузка Excel</h2>
+    <form method="POST" action="/discount-system/upload-excel" enctype="multipart/form-data">
         <label for="excel_file">Выберите файл Excel</label>
         <input type="file" id="excel_file" name="excel_file" accept=".xlsx,.xls" required>
         <div class="form-info">
@@ -23,5 +32,6 @@
         </div>
         <button type="submit">Загрузить</button>
     </form>
+    </div>
 </div>
 {% endblock %}

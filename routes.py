@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 import os
 import base64
-from models import db, User, Complex, PropertyType, PaymentType, DiscountObject
+from models import Comment, db, User, Complex, PropertyType, PaymentType, DiscountObject
 from services import DataSyncService
 import utils
 
@@ -12,6 +12,7 @@ import utils
 dashboard_bp = Blueprint('dashboard', __name__)
 admin_bp = Blueprint('admin', __name__)
 api_bp = Blueprint('api', __name__)
+# filters_bp = Blueprint('filters', __name__)
 
 # Add a helper function at the top of the file to handle prefix in URLs
 
@@ -53,7 +54,6 @@ def decode_header_full_name(request):
             return encoded_full_name  # Возвращаем как есть, если декодирование не удалось
     else:
         return encoded_full_name  # Не закодировано или нет указания кодировки
-
 
 def get_current_user():
     """Get current user information from request headers"""
@@ -102,6 +102,27 @@ def get_current_user():
         db.session.rollback()
         print(f"Error creating user: {str(e)}")
     return user
+
+@admin_bp.app_template_filter('format_comment')
+def format_comment(text):
+    # Define patterns to recognize section headers and entries
+    import re
+    
+    # Add line breaks before section headers
+    text = re.sub(r'(Изменение максимальных скидок)', r'\n\1', text)
+    
+    # Add line breaks before project entries
+    text = re.sub(r'([A-Za-zА-Яа-я\'\d-]+\s[A-Za-zА-Яа-я\'\d-]+(?:\s\(\d\))?\s*-)', r'\n\1', text)
+    
+    # Handle special cases for project names with numbers
+    text = re.sub(r'\n\n', r'\n', text)
+    
+    # Remove leading newline if present
+    if text.startswith('\n'):
+        text = text[1:]
+        
+    return text
+
 # Dashboard routes
 @dashboard_bp.route('/')
 def index():
@@ -109,11 +130,13 @@ def index():
     complexes = Complex.query.all()
     property_types = PropertyType.query.all()
     payment_types = PaymentType.query.all()
+    comment=Comment.query.order_by(Comment.created_at.desc()).first()
     return render_template('dashboard/index.html', 
                          complexes=complexes, 
                          property_types=property_types,
                          payment_types=payment_types,
-                         current_user=current_user)
+                         current_user=current_user,
+                         comment=comment)
 
 # Admin routes for data management
 @admin_bp.route('/upload-excel', methods=['GET', 'POST'])
@@ -138,6 +161,27 @@ def upload_excel():
             flash(f'Error: {str(e)}', 'error')
 
     return render_template('admin/upload.html', columns = os.getenv('EXCEL_COLUMNS').split(','), sheet = os.getenv('EXCEL_SHEET_NAME'), current_user=current_user)
+
+
+@admin_bp.route('/upload-comment', methods=['POST'])
+def upload_comment():
+    current_user = get_current_user()
+    if request.method == 'POST' and current_user.role == 'admin':
+        comment_text = request.form.get('comment_text', '').strip()
+        if not comment_text:
+            flash('Comment cannot be empty', 'error')
+            return redirect(request.referrer or get_prefix_url('/'))
+        
+        try:
+            new_comment = Comment(text=comment_text)
+            db.session.add(new_comment)
+            db.session.commit()
+            flash('Comment added successfully!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Error adding comment: {str(e)}', 'error')
+    
+    return redirect(request.referrer or get_prefix_url('/'))
 
 # API routes for getting discount data
 @api_bp.route('/api/discounts')

@@ -37,10 +37,8 @@ body {
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 100px;
 }
 
 .centered-container {
@@ -68,8 +66,6 @@ h1 {
 form {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    padding: 20px;
 }
 
 label {
@@ -107,6 +103,7 @@ input[type="date"],
 input[type="number"],
 input[type="file"],
 input[type="email"],
+textarea,
 select {
     min-width: 100%;
     max-width: 100%;
@@ -339,4 +336,18 @@ tbody tr:hover {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+}
+
+
+.comment_container{
+    display: block;
+    position: absolute;
+    top: 20vh;
+    left: 70vw;
+    max-width: 20vw;
+    background: #ffe7c3;
+    padding: 0px 20px;
+    border-radius: 5px;
+    box-shadow: 11px 10px 14px 0px rgba(34, 60, 80, 0.25);
+    transform: rotate(-5deg);
 }

@@ -4,13 +4,23 @@
 
 {% block content %}
 <div class="container">
+    {% if current_user.role == 'rop' or current_user.role == 'admin' %}
+    <div class="comment_container">
+        <h2>Последний комментарий</h2>
+        {% if comment %}
+            <p><strong>{{ comment.created_at.strftime('%d.%m.%Y %H:%M') }}</strong> <pre class="comment-text" style="white-space: pre-wrap;">{{ comment.text|format_comment }}</pre></p>
+        {% else %}
+            <p>Без комментариев.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
     <div class="top-left">
         <img src="/discount-system/static/img/gh_logo.png" alt="Golden House Logo" class="logo">
     </div>
 
     <div class="form-container">
         <h1>Система скидок</h1>
-        
         <form id="discountForm">
             <div class="form-group">
                 <label for="complex">Жилой комплекс</label>
