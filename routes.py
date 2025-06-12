@@ -72,7 +72,8 @@ def get_current_user():
         role = 'admin'
     elif 'discount-user' in roles or 'user' in roles:
         role = 'user'
-        
+    elif 'discount-rop' in roles or 'rop' in roles:
+        role = 'rop' 
     if user:
         if user.role != 'admin' and is_admin:
             user.role = 'admin'
@@ -88,7 +89,7 @@ def get_current_user():
         user = User(
             login=username,
             full_name=full_name,
-            role = role
+            role=role
         )
         db.session.add(user)
         
