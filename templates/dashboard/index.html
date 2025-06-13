@@ -6,7 +6,7 @@
 <div class="container">
     {% if current_user.role == 'rop' or current_user.role == 'admin' %}
     <div class="comment_container">
-        <h2>Последний комментарий</h2>
+        <h2>Последние изменения</h2>
         {% if comment %}
             <p><strong>{{ comment.created_at.strftime('%d.%m.%Y %H:%M') }}</strong> <pre class="comment-text" style="white-space: pre-wrap;">{{ comment.text|format_comment }}</pre></p>
         {% else %}
