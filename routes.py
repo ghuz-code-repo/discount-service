@@ -68,12 +68,13 @@ def get_current_user():
     role_str = request.headers.get('X-User-Roles')
     roles = str.split(role_str, ',')
     role=''
+
+    if 'discount-user' in roles or 'user' in roles:
+        role = 'user'
+    if 'discount-rop' in roles or 'rop' in roles:
+        role = 'rop' 
     if 'admin' in roles or 'discount-admin' in roles:
         role = 'admin'
-    elif 'discount-user' in roles or 'user' in roles:
-        role = 'user'
-    elif 'discount-rop' in roles or 'rop' in roles:
-        role = 'rop' 
     if user:
         if user.role != 'admin' and is_admin:
             user.role = 'admin'
