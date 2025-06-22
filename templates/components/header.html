@@ -1,28 +1,42 @@
 <header class="header">
     <div class="header-content">
-        <div class="header-logo">
-            <img src="/discount-system/static/logo.png" alt="Golden House Logo" class="logo">
-        </div>
+        <div class="logo-container">
+            <!-- Пробуем разные варианты пути к логотипу -->
+            <img id="logo-light" class="logo" src="/discount-system/static/img/logo-dark.svg" alt="Golden House Logo" onerror="this.style.display='none'; console.log('Logo not found, hiding element');">
+            <img id="logo-dark" class="logo hidden" src="/discount-system/static/img/logo-light.svg" alt="Golden House Logo" onerror="this.style.display='none'; console.log('Logo not found, hiding element');">
 
-        <div class="header-nav">
-            {% if request.path != '/' and request.path != '/discount-system/' %}
-            <a href="/discount-system/" class="nav-link">
-                <button>Калькулятор</button>
-            </a>
-            {% endif %}
-            {% if current_user.role == 'admin'%}
-                {% if request.path != '/upload-excel' and request.path != '/discount-system/upload-excel' %}
-                <a href="/discount-system/upload-excel" class="nav-link">
-                    <button>Админка</button>
-                </a>
-                {% endif %}
-            {% endif %}
-            <div class="user-info">
-                <span>{{ current_user.full_name }}</span>
-                <a href="/" class="nav-link">
-                    <button>Menu</button>
-                </a>
-            </div>
         </div>
+        
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="/discount-system/" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        Главная
+                    </a>
+                </li>
+                {% if current_user and current_user.role in ['rop', 'admin'] %}
+                <li class="nav-item">
+                    <a href="/discount-system/upload-excel" class="nav-link">
+                        <i class="fas fa-cogs"></i>
+                        Управление
+                    </a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a href="/menu" class="nav-link">
+                        <i class="fas fa-th-list"></i>
+                        Меню сервисов
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <button id="theme-switcher" class="theme-switcher" title="Переключить тему">
+                        <span>Тёмная тема</span>
+                    </button>
+                </li>
+            </ul>
+            <!-- Кнопка переключения темы -->
+
+        </nav>
     </div>
 </header>

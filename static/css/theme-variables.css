@@ -1,0 +1,396 @@
+/* 
+ * Система цветовых переменных для discount-service
+ * Сохранение СУЩЕСТВУЮЩИХ цветов + добавление новых для тёмной темы
+ */
+
+:root {
+    /* === СУЩЕСТВУЮЩИЕ ЦВЕТА (ПЕРЕНЕСЁННЫЕ ИЗ ОРИГИНАЛА) === */
+    
+    /* Основные цвета Golden House - БЕЗ ИЗМЕНЕНИЙ */
+    --primary-golden: #d4af37;           /* Оригинальный золотой цвет */
+    --primary-golden-hover: #b8941f;     /* Оригинальный hover */
+    
+    /* Фоновые цвета - ОРИГИНАЛЬНЫЕ */
+    --bg-body: #f4f4f4;                  /* Оригинальный фон body */
+    --bg-white: #ffffff;                 /* Оригинальный белый */
+    --bg-light-gray: #f8f9fa;            /* Оригинальный светло-серый */
+    
+    /* Текстовые цвета - ОРИГИНАЛЬНЫЕ */
+    --text-dark: #333;                   /* Оригинальный тёмный текст */
+    --text-muted: #666;                  /* Оригинальный приглушённый */
+    
+    /* Границы - ОРИГИНАЛЬНЫЕ */
+    --border-light: #ddd;                /* Оригинальные светлые границы */
+    --border-gray: #ccc;                 /* Оригинальные границы */
+    
+    /* === НОВЫЕ ЦВЕТА ТОЛЬКО ДЛЯ ТЁМНОЙ ТЕМЫ [NEW] === */
+    
+    /* Тёмная тема - фоны [NEW] */
+    --bg-dark-primary: #111;          /* [NEW] Основной тёмный фон */
+    --bg-dark-secondary: #2b2b2b;        /* [NEW] Вторичный тёмный фон */
+    --bg-dark-surface: #313131;          /* [NEW] Поверхности */
+    
+    /* Тёмная тема - текст [NEW] */
+    --text-light-primary: #ffffff;       /* [NEW] Белый текст */
+    --text-light-secondary: #cccccc;     /* [NEW] Светло-серый текст */
+    
+    /* Тёмная тема - золотой [NEW] */
+    --golden-dark-theme: #d4af37;        /* [NEW] Золотой для тёмной темы */
+    --golden-dark-hover: #b8941f;        /* [NEW] Hover золотого */
+    
+    /* Тёмная тема - границы [NEW] */
+    --border-dark: #444;                 /* [NEW] Границы в тёмной теме */
+    --border-dark-light: #555;           /* [NEW] Светлые границы */
+    
+    /* Системные цвета [NEW] */
+    --success: #28a745;                  /* [NEW] Успех */
+    --error: #dc3545;                    /* [NEW] Ошибка */
+    --warning: #ffc107;                  /* [NEW] Предупреждение */
+    --info: #17a2b8;                     /* [NEW] Информация */
+    
+    /* Particles [NEW] */
+    --particles-light: #c4a668;              /* [NEW] Частицы фиксированный цвет */
+    --particles-dark: #ffd700;           /* [NEW] Частицы тёмная тема */
+    
+    /* Эффекты [NEW] */
+    --shadow-light: 0 2px 4px rgba(0,0,0,0.1);  /* [NEW] */
+    --shadow-dark: 0 2px 4px rgba(0,0,0,0.3);   /* [NEW] */
+    --transition: 0.3s ease;             /* [NEW] */
+    --border-radius: 4px;                /* [NEW] */
+    --header-height: 70px;               /* [NEW] */
+}
+
+/* Тёмная тема - переопределение ТОЛЬКО для тёмной темы */
+.dark-theme {
+    --bg-body: var(--bg-dark-primary);
+    --bg-white: var(--bg-dark-surface);
+    --bg-light-gray: var(--bg-dark-secondary);
+    --text-dark: var(--text-light-primary);
+    --text-muted: var(--text-light-secondary);
+    --border-light: var(--border-dark);
+    --border-gray: var(--border-dark-light);
+    --primary-golden: var(--golden-dark-theme);
+    --primary-golden-hover: var(--golden-dark-hover);
+}
+
+/* === ПРИМЕНЕНИЕ К СУЩЕСТВУЮЩИМ ЭЛЕМЕНТАМ === */
+
+/* Базовые элементы - используем ОРИГИНАЛЬНЫЕ переменные */
+body {
+    background-color: var(--bg-body) !important;
+    color: var(--text-dark) !important;
+    transition: all var(--transition);
+}
+
+.container {
+    background-color: var(--bg-white) !important;
+    color: var(--text-dark) !important;
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+}
+
+.form-container {
+    background-color: var(--bg-white) !important;
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+}
+
+.comment_container {
+    background-color: var(--bg-white) !important;
+    border: 1px solid var(--border-light);
+    border-radius: var(--border-radius);
+    color: var(--text-dark) !important;
+}
+
+/* Формы */
+.form-group label {
+    color: var(--text-dark) !important;
+}
+
+select, input, textarea {
+    background-color: var(--bg-white) !important;
+    border: 1px solid var(--border-gray) !important;
+    color: var(--text-dark) !important;
+    border-radius: var(--border-radius);
+}
+
+select:focus, input:focus, textarea:focus {
+    border-color: var(--primary-golden) !important;
+    outline: none;
+}
+
+/* Дополнительные элементы форм */
+.comment-text {
+    background-color: var(--bg-white) !important;
+    color: var(--text-dark) !important;
+    border: 1px solid var(--border-light) !important;
+}
+
+/* Таблицы */
+table {
+    background-color: var(--bg-white) !important;
+    border: 1px solid var(--border-light);
+}
+
+th {
+    background-color: var(--bg-light-gray) !important;
+    color: var(--text-dark) !important;
+    border-bottom: 1px solid var(--border-light);
+}
+
+td {
+    color: var(--text-dark) !important;
+    border-bottom: 1px solid var(--border-light);
+}
+
+tbody tr:hover {
+    background-color: var(--bg-light-gray) !important;
+}
+
+/* Заголовки - СОХРАНЯЕМ ОРИГИНАЛЬНЫЙ ЗОЛОТЫЙ */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-golden) !important;
+}
+
+/* === НОВЫЕ СТИЛИ ДЛЯ PARTICLES И HEADER [NEW] === */
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: var(--bg-body);
+}
+
+.main-content {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding-top: var(--header-height);
+    background: transparent; /* Убираем фон чтобы видеть частицы */
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(244, 244, 244, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+    box-shadow: var(--shadow-light);
+    z-index: 100;
+    transition: all var(--transition);
+}
+
+.dark-theme .header {
+    background: rgba(26, 26, 26, 0.95);
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    height: 45px;
+    width: auto;
+    transition: all var(--transition);
+    cursor: pointer;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo.hidden {
+    display: none;
+}
+
+.brand-text {
+    color: var(--primary-golden) !important;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 1rem;
+    transition: color var(--transition);
+}
+
+.brand-text:hover {
+    color: var(--primary-golden-hover) !important;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-dark) !important;
+    text-decoration: none;
+    border-radius: var(--border-radius);
+    transition: all var(--transition);
+}
+
+.nav-link:hover {
+    background-color: var(--bg-light-gray);
+    color: var(--primary-golden) !important;
+}
+
+.theme-switcher {
+    background: transparent !important;
+    border: 2px solid var(--primary-golden) !important;
+    color: var(--primary-golden) !important;
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-switcher::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(90deg, transparent, var(--primary-golden), transparent); */
+    transition: left 0.6s ease;
+    z-index: 0;
+}
+
+.theme-switcher:hover::before {
+    left: 100%;
+}
+
+.theme-switcher:hover {
+    background-color: var(--primary-golden) !important;
+    color: var(--bg-white) !important;
+    /* transform: translateY(-2px); */
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+}
+
+.theme-switcher i {
+    transition: transform var(--transition);
+    position: relative;
+    z-index: 1;
+}
+
+.theme-switcher span {
+    position: relative;
+    z-index: 1;
+}
+
+.theme-switcher:hover i {
+    transform: rotate(180deg);
+}
+
+/* Flash сообщения [NEW] */
+.flash-messages {
+    position: fixed;
+    top: calc(var(--header-height) + 1rem);
+    right: 1rem;
+    z-index: 1000;
+}
+
+.flash-message {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 0.5rem;
+    box-shadow: var(--shadow-light);
+}
+
+.flash-message.success {
+    background-color: var(--success);
+    color: white;
+}
+
+.flash-message.error {
+    background-color: var(--error);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        padding: 0 1rem;
+    }
+    
+    .logo-container {
+        gap: 0.5rem;
+    }
+    
+    .brand-text {
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+    }
+    
+    .logo {
+        height: 35px;
+    }
+    
+    .nav {
+        gap: 1rem;
+    }
+    
+    .nav-list {
+        gap: 0.5rem;
+    }
+    
+    .theme-switcher {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .theme-switcher span {
+        display: none; /* Скрываем текст на мобильных */
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-text {
+        display: none; /* Скрываем название на очень маленьких экранах */
+    }
+    
+    .nav-list {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .nav-link {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}

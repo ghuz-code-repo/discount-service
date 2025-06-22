@@ -34,7 +34,7 @@ body {
     align-items: center;
     min-width: 50%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
@@ -191,13 +191,6 @@ th {
     font-weight: 500;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
-tbody tr:hover {
-    background-color: #ecf0f1;
-}
 
 #discountFields {
     min-width: 100%;
@@ -206,13 +199,14 @@ tbody tr:hover {
 
 /* Header Styles */
 .header {
-    background-color: #fff;
+    /* background-color: #fff; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 1000;
+    padding-bottom: 20px;
 }
 
 .header-content {
@@ -264,11 +258,6 @@ tbody tr:hover {
     font-weight: 500;
 }
 
-/* Adjust main content for fixed header */
-.main-content {
-    margin-top: 80px;
-    padding: 20px;
-}
 
 /* Modal styles */
 .modal {

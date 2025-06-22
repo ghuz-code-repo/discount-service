@@ -8,16 +8,13 @@
     <div class="comment_container">
         <h2>Последние изменения</h2>
         {% if comment %}
-            <p><strong>{{ comment.created_at.strftime('%d.%m.%Y %H:%M') }}</strong> <pre class="comment-text" style="white-space: pre-wrap;">{{ comment.text|format_comment }}</pre></p>
+            <p><strong>{{ comment.created_at.strftime('%d.%m.%Y %H:%M') }}</strong> 
+            <pre class="comment-text" style="white-space: pre-wrap; background-color: var(--bg-white) !important; color: var(--text-dark) !important; padding: 1rem; border-radius: var(--border-radius); border: 1px solid var(--border-light);">{{ comment.text|format_comment }}</pre></p>
         {% else %}
             <p>Без комментариев.</p>
         {% endif %}
     </div>
     {% endif %}
-
-    <div class="top-left">
-        <img src="/discount-system/static/img/gh_logo.png" alt="Golden House Logo" class="logo">
-    </div>
 
     <div class="form-container">
         <h1>Система скидок</h1>
